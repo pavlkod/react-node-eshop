@@ -24,6 +24,12 @@ const Device = seqielize.define("device", {
   img: { type: DataTypes.STRING, allowNull: false },
 });
 
+const DeviceInfo = seqielize.define("device_info", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  title: { type: DataTypes.STRING, allowNull: false },
+  description: { type: DataTypes.STRING, allowNull: false },
+});
+
 const Type = seqielize.define("type", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -32,4 +38,9 @@ const Type = seqielize.define("type", {
 const Brand = seqielize.define("brand", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
+});
+
+const Rating = seqielize.define("rating", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  rate: { type: DataTypes.INTEGER, allowNull: false },
 });
