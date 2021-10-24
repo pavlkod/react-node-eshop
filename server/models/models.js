@@ -7,3 +7,7 @@ const User = seqielize.define("user", {
   password: { type: DataTypes.STRING },
   roles: { type: DataTypes.STRING, defaultValue: "USER" },
 });
+
+const Basket = seqielize.define("basket", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
