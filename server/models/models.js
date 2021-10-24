@@ -11,3 +11,7 @@ const User = seqielize.define("user", {
 const Basket = seqielize.define("basket", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
+
+const BasketDevice = seqielize.define("basket_device", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
