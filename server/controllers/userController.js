@@ -23,7 +23,19 @@ class UserController {
     const token = generateJWT(user);
     return res.json({ token });
   }
-  async login(req, res) {}
+  async login(req, res, next) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return next(ApiError.badRequest(`User with email ${email} not exists`));
+    }
+    let comparedPwd = bcrypt.compareSync(password, user.password);
+    if (!comparedPwd) {
+      return next(ApiError.badRequest(`Password not same`));
+    }
+    const token = generateJWT(user);
+    return res.json({ token });
+  }
   async check(req, res, next) {
     const { id } = req.query;
     if (!id) {
