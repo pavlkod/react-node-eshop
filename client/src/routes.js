@@ -18,6 +18,7 @@ export const authRoutes = [
 ];
 export const publicRoutes = [
   {
+    exact: true,
     path: SHOP_ROUTE,
     Component: Shop,
   },
