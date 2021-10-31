@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 const { User, Basket } = require("../models/models");
 
 const generateJWT = (id, email, role) =>
-  jwt.sign({ id: id, email, role }, process.env.SECRET_KEY_JWT, { expiresIn: "24h" });
+  jwt.sign({ id, email, role }, process.env.SECRET_KEY_JWT, { expiresIn: "24h" });
 
 class UserController {
   async registration(req, res, next) {
-    const { email, password, role } = req.body;
+    const { email, password, roles } = req.body;
 
     if (!email || !password) {
       return next(ApiError.badRequest("Empty email or password"));
@@ -18,7 +18,7 @@ class UserController {
       return next(ApiError.badRequest("User already exists"));
     }
     const hashpwd = await bcrypt.hash(password, 5);
-    const user = await User.create({ email, password: hashpwd, role });
+    const user = await User.create({ email, password: hashpwd, roles });
     const basket = await Basket.create({ userId: user.id });
     const token = generateJWT(user);
     return res.json({ token });
@@ -37,11 +37,9 @@ class UserController {
     return res.json({ token });
   }
   async check(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(ApiError.badRequest("No transfer parameter ID"));
-    }
-    res.json(id);
+    const { id, email, role } = req.user;
+    const token = generateJWT(id, email, role);
+    res.json({ token });
   }
 }
 
