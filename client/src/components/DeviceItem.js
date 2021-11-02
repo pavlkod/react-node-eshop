@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Stack } from "react-bootstrap";
 import { useHistory } from "react-router";
 
-import { ReactComponent as Img } from "../assets/img/Vector.svg";
+import { ReactComponent as Img } from "../assets/img/Star_list.svg";
 import { DEVICE_ROUTE } from "../utils/const";
 
 const DeviceItem = ({ device: { id, name, img } }) => {
