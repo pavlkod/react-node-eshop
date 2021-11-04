@@ -9,6 +9,12 @@ const DevicePage = () => {
   const { device } = useContext(Context);
   const params = useParams();
   const item = device.devices.find(device => device.id === +params.id);
+  const characteristics = [
+    { id: 1, title: "Volume", description: "5 Mb" },
+    { id: 2, title: "Memory", description: "512 Mb" },
+    { id: 3, title: "Color", description: "Black" },
+    { id: 4, title: "Size", description: "10 inch" },
+  ];
   return (
     <Container className="mt-3">
       <Row>
@@ -42,6 +48,14 @@ const DevicePage = () => {
           </Card>
         </Col>
       </Row>
+      <div>
+        {characteristics.map(char => (
+          <Row key={char.id}>
+            <Col xs={6}>{char.title}</Col>
+            <Col xs={6}>{char.description}</Col>
+          </Row>
+        ))}
+      </div>
     </Container>
   );
 };
