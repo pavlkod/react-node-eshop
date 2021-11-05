@@ -48,14 +48,17 @@ const DevicePage = () => {
           </Card>
         </Col>
       </Row>
-      <div>
-        {characteristics.map(char => (
-          <Row key={char.id}>
-            <Col xs={6}>{char.title}</Col>
-            <Col xs={6}>{char.description}</Col>
-          </Row>
-        ))}
-      </div>
+      {characteristics.length && (
+        <div>
+          <h2>Characteristics</h2>
+          {characteristics.map((char, i) => (
+            <Row key={char.id} style={{ background: i % 2 === 0 ? "#fff" : "#f2f2f2" }}>
+              <Col xs={6}>{char.title}</Col>
+              <Col xs={6}>{char.description}</Col>
+            </Row>
+          ))}
+        </div>
+      )}
     </Container>
   );
 };
