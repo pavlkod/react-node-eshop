@@ -8,6 +8,9 @@ const CreateDevice = ({ show, onHide }) => {
   const addInfo = () => {
     setProps([...props, { title: "", description: "", number: Date.now() }]);
   };
+  const removeInfo = number => {
+    setProps(props.filter(value => value.number !== number));
+  };
   return (
     <Modal show={show} size="lg" aria-labelledby="contained-modal-title-vcenter" centered onHide={onHide}>
       <Modal.Header closeButton>
@@ -48,7 +51,9 @@ const CreateDevice = ({ show, onHide }) => {
                 <Form.Control placeholder="Input description" />
               </Col>
               <Col md={4}>
-                <Button variant={"outline-danger"}>Remove</Button>
+                <Button variant={"outline-danger"} onClick={() => removeInfo(prop.number)}>
+                  Remove
+                </Button>
               </Col>
             </Row>
           ))}
