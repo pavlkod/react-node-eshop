@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Container, Form, Button, Stack } from "react-bootstrap";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../utils/const";
 import { useHistory, useLocation } from "react-router-dom";
 import { login, registration } from "../http/userApi";
 
-const Auth = () => {
+import { observer } from "mobx-react-lite";
+import { Context } from "..";
+
+const Auth = observer(() => {
   const history = useHistory();
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { user } = useContext(Context);
 
   const goToPage = () => {
     if (isLogin) {
@@ -20,14 +25,14 @@ const Auth = () => {
     }
   };
   const signAction = async () => {
-    console.log(email, password);
+    let data;
     if (isLogin) {
-      const response = await login(email, password);
-      console.log(response);
+      data = await login(email, password);
     } else {
-      const response = await registration(email, password);
-      console.log(response, process.env.REACT_APP_API_URL);
+      data = await registration(email, password);
     }
+    user.setUser(data.id);
+    user.setIsAuthorize(true);
   };
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ height: "calc(100vh - 56px)" }}>
@@ -57,6 +62,6 @@ const Auth = () => {
       </Card>
     </Container>
   );
-};
+});
 
 export default Auth;
