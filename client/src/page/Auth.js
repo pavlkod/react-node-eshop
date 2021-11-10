@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Card, Container, Form, Button, Stack } from "react-bootstrap";
-import { LOGIN_ROUTE, REGISTER_ROUTE } from "../utils/const";
+import { LOGIN_ROUTE, REGISTER_ROUTE, SHOP_ROUTE } from "../utils/const";
 import { useHistory, useLocation } from "react-router-dom";
 import { login, registration } from "../http/userApi";
 
@@ -34,6 +34,7 @@ const Auth = observer(() => {
       }
       user.setUser(data.id);
       user.setIsAuthorize(true);
+      history.push(SHOP_ROUTE);
     } catch (e) {
       alert(e.response.data.message);
     }
