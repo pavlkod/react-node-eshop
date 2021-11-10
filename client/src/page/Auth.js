@@ -25,14 +25,18 @@ const Auth = observer(() => {
     }
   };
   const signAction = async () => {
-    let data;
-    if (isLogin) {
-      data = await login(email, password);
-    } else {
-      data = await registration(email, password);
+    try {
+      let data;
+      if (isLogin) {
+        data = await login(email, password);
+      } else {
+        data = await registration(email, password);
+      }
+      user.setUser(data.id);
+      user.setIsAuthorize(true);
+    } catch (e) {
+      alert(e.response.data.message);
     }
-    user.setUser(data.id);
-    user.setIsAuthorize(true);
   };
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ height: "calc(100vh - 56px)" }}>
