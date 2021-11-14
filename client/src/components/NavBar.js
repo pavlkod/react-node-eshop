@@ -19,7 +19,7 @@ const NavBar = observer(() => {
           </Navbar.Brand>
           <Nav className="ml-auto">
             {!user.isAuthorized && (
-              <Nav.Link to={LOGIN_ROUTE} as={NavLink} onClick={() => user.setIsAuthorize(true)}>
+              <Nav.Link to={LOGIN_ROUTE} as={NavLink}>
                 Login
               </Nav.Link>
             )}
@@ -28,7 +28,7 @@ const NavBar = observer(() => {
                 <Nav.Link to={ADMIN_ROUTE} as={NavLink}>
                   Admin panel
                 </Nav.Link>
-                <Nav.Link to={ADMIN_ROUTE} as={NavLink} onClick={() => user.setIsAuthorize(false)}>
+                <Nav.Link to={SHOP_ROUTE} as={NavLink} onClick={() => user.setIsAuthorize(false)}>
                   Logout
                 </Nav.Link>
               </>
