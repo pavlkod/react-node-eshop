@@ -5,6 +5,6 @@ export const createType = async type => {
   return data;
 };
 export const fetchTypes = async () => {
-  const { data } = await host.post("api/type/");
+  const { data } = await host.get("api/type/");
   return data;
 };
