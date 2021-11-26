@@ -9,7 +9,7 @@ const DeviceItem = ({ device: { id, name, img } }) => {
   const history = useHistory();
   return (
     <Card onClick={() => history.push(`${DEVICE_ROUTE}/${id}`)}>
-      <Card.Img variant="top" src={img} />
+      <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/assets/${img}`} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <div className="d-flex flex-wrap justify-content-between">
