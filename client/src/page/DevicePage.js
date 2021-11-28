@@ -1,29 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Col, Container, Image, Row, Stack, Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Context } from "..";
 
+import { fetchOneDevice } from "../http/deviceApi";
 import { ReactComponent as Star } from "../assets/img/Star_detail.svg";
 
 const DevicePage = () => {
-  const { device } = useContext(Context);
-  const params = useParams();
-  const item = device.devices.find(device => device.id === +params.id);
+  const { id } = useParams();
   const characteristics = [
     { id: 1, title: "Volume", description: "5 Mb" },
     { id: 2, title: "Memory", description: "512 Mb" },
     { id: 3, title: "Color", description: "Black" },
     { id: 4, title: "Size", description: "10 inch" },
   ];
+  const [device, setDevice] = useState({ info: [] });
+  useEffect(() => {
+    fetchOneDevice(id).then(device => setDevice(device));
+  }, []);
   return (
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image src={item.img} />
+          <Image src={device.img} />
         </Col>
         <Col md={4}>
           <Stack className="text-center">
-            <h2>{item.name}</h2>
+            <h2>{device.name}</h2>
             <div style={{ position: "relative", fontSize: "50px" }}>
               <Star />
               <div
@@ -34,7 +37,7 @@ const DevicePage = () => {
                   left: "50%",
                 }}
               >
-                {item.rating}
+                {device.rating}
               </div>
             </div>
           </Stack>
@@ -42,7 +45,7 @@ const DevicePage = () => {
         <Col md={4}>
           <Card className="p-4" style={{ fontSize: 32 }}>
             <Stack gap={4}>
-              <div>{item.price}</div>
+              <div>{device.price}</div>
               <Button variant="primary">Buy</Button>
             </Stack>
           </Card>
