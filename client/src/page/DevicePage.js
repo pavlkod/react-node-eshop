@@ -22,7 +22,7 @@ const DevicePage = () => {
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image src={device.img} />
+          <Image src={`${process.env.REACT_APP_API_URL}/assets/${device.img}`} />
         </Col>
         <Col md={4}>
           <Stack className="text-center">
