@@ -4,6 +4,9 @@ import { Context } from "../..";
 
 const CreateDevice = ({ show, onHide }) => {
   const { device } = useContext(Context);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [file, setFile] = useState(null);
   const [props, setProps] = useState([]);
   const addInfo = () => {
     setProps([...props, { title: "", description: "", number: Date.now() }]);
