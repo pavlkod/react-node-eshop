@@ -38,9 +38,26 @@ const CreateDevice = ({ show, onHide }) => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Form.Control placeholder="Input device..." className="mt-3" />
-          <Form.Control placeholder="Input price..." className="mt-3" type="number" />
-          <Form.Control placeholder="Input image..." className="mt-3" type="file" />
+          <Form.Control
+            placeholder="Input device..."
+            className="mt-3"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <Form.Control
+            placeholder="Input price..."
+            className="mt-3"
+            type="number"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+          />
+          <Form.Control
+            placeholder="Input image..."
+            className="mt-3"
+            type="file"
+            value={file}
+            onChange={e => setFile(e.target.value)}
+          />
           <hr />
           <Button variant="outline-dark" onClick={addInfo}>
             Add new prop
