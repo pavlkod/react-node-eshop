@@ -14,6 +14,9 @@ const CreateDevice = ({ show, onHide }) => {
   const removeInfo = number => {
     setProps(props.filter(value => value.number !== number));
   };
+  const addType = () => {
+    onHide();
+  };
   return (
     <Modal show={show} size="lg" aria-labelledby="contained-modal-title-vcenter" centered onHide={onHide}>
       <Modal.Header closeButton>
@@ -83,7 +86,7 @@ const CreateDevice = ({ show, onHide }) => {
         <Button onClick={onHide} variant="outline-primary">
           Close
         </Button>
-        <Button onClick={onHide} variant="outline-success">
+        <Button onClick={addType} variant="outline-success">
           Add
         </Button>
       </Modal.Footer>
