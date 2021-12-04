@@ -61,7 +61,7 @@ const CreateDevice = ({ show, onHide }) => {
             className="mt-3"
             type="file"
             value={file}
-            onChange={e => setFile(e.target.value)}
+            onChange={e => setFile(e.target.files[0])}
           />
           <hr />
           <Button variant="outline-dark" onClick={addInfo}>
