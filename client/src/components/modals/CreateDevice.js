@@ -7,8 +7,6 @@ const CreateDevice = ({ show, onHide }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [file, setFile] = useState(null);
-  const [brand, setBrand] = useState(null);
-  const [type, setType] = useState(null);
   const [props, setProps] = useState([]);
   const addInfo = () => {
     setProps([...props, { title: "", description: "", number: Date.now() }]);
@@ -30,7 +28,9 @@ const CreateDevice = ({ show, onHide }) => {
             <Dropdown.Toggle>Choose type</Dropdown.Toggle>
             <Dropdown.Menu>
               {device.types.map(type => (
-                <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>
+                <Dropdown.Item onClick={() => device.setSelectedType(type)} key={type.id}>
+                  {type.name}
+                </Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
@@ -38,7 +38,9 @@ const CreateDevice = ({ show, onHide }) => {
             <Dropdown.Toggle>Choose brand</Dropdown.Toggle>
             <Dropdown.Menu>
               {device.brands.map(brand => (
-                <Dropdown.Item key={brand.id}>{brand.name}</Dropdown.Item>
+                <Dropdown.Item onClick={() => device.setSelectedBrand(brand)} key={brand.id}>
+                  {brand.name}
+                </Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
