@@ -16,6 +16,9 @@ const CreateDevice = observer(({ show, onHide }) => {
   const removeInfo = number => {
     setProps(props.filter(value => value.number !== number));
   };
+  const changeInfo = (key, value, number) => {
+    setProps(props.map(prop => (prop.number === number ? { ...prop, [key]: value } : prop)));
+  };
   const addType = () => {
     onHide();
   };
@@ -78,10 +81,18 @@ const CreateDevice = observer(({ show, onHide }) => {
           {props.map((prop, i) => (
             <Row key={i} className="mt-3">
               <Col md={4}>
-                <Form.Control placeholder="Input title" />
+                <Form.Control
+                  placeholder="Input title"
+                  value={prop.title}
+                  onChange={e => changeInfo("title", e.target.value, prop.number)}
+                />
               </Col>
               <Col md={4}>
-                <Form.Control placeholder="Input description" />
+                <Form.Control
+                  placeholder="Input description"
+                  value={prop.description}
+                  onChange={e => changeInfo("description", e.target.value, prop.number)}
+                />
               </Col>
               <Col md={4}>
                 <Button variant={"outline-danger"} onClick={() => removeInfo(prop.number)}>
