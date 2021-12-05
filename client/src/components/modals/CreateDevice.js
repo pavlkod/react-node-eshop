@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Modal, Button, Dropdown, Row, Col } from "react-bootstrap";
 import { Context } from "../..";
+import { fetchBrands, fetchTypes } from "../../http/deviceApi";
 
-const CreateDevice = ({ show, onHide }) => {
+const CreateDevice = observer(({ show, onHide }) => {
   const { device } = useContext(Context);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -17,6 +19,10 @@ const CreateDevice = ({ show, onHide }) => {
   const addType = () => {
     onHide();
   };
+  useEffect(() => {
+    fetchTypes().then(types => device.setTypes(types));
+    fetchBrands().then(brands => device.setBrands(brands));
+  }, []);
   return (
     <Modal show={show} size="lg" aria-labelledby="contained-modal-title-vcenter" centered onHide={onHide}>
       <Modal.Header closeButton>
@@ -25,7 +31,7 @@ const CreateDevice = ({ show, onHide }) => {
       <Modal.Body>
         <Form>
           <Dropdown className="mt-3">
-            <Dropdown.Toggle>Choose type</Dropdown.Toggle>
+            <Dropdown.Toggle>{device.selectedType.name || "Choose type"}</Dropdown.Toggle>
             <Dropdown.Menu>
               {device.types.map(type => (
                 <Dropdown.Item onClick={() => device.setSelectedType(type)} key={type.id}>
@@ -35,7 +41,7 @@ const CreateDevice = ({ show, onHide }) => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown className="mt-3">
-            <Dropdown.Toggle>Choose brand</Dropdown.Toggle>
+            <Dropdown.Toggle>{device.selectedBrand.name || "Choose brand"}</Dropdown.Toggle>
             <Dropdown.Menu>
               {device.brands.map(brand => (
                 <Dropdown.Item onClick={() => device.setSelectedBrand(brand)} key={brand.id}>
@@ -96,6 +102,6 @@ const CreateDevice = ({ show, onHide }) => {
       </Modal.Footer>
     </Modal>
   );
-};
+});
 
 export default CreateDevice;
