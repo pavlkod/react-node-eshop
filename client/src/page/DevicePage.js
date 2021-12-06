@@ -22,7 +22,7 @@ const DevicePage = () => {
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image src={`${process.env.REACT_APP_API_URL}/assets/${device.img}`} />
+          <Image src={`${process.env.REACT_APP_API_URL}/assets/${device.img}`} style={{ maxWidth: "100%" }} />
         </Col>
         <Col md={4}>
           <Stack className="text-center">
@@ -51,10 +51,10 @@ const DevicePage = () => {
           </Card>
         </Col>
       </Row>
-      {characteristics.length && (
+      {device.info.length > 0 && (
         <div>
           <h2>Characteristics</h2>
-          {characteristics.map((char, i) => (
+          {device.info.map((char, i) => (
             <Row key={char.id} style={{ background: i % 2 === 0 ? "#fff" : "#f2f2f2" }}>
               <Col xs={6}>{char.title}</Col>
               <Col xs={6}>{char.description}</Col>
