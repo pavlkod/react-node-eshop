@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Modal, Button, Dropdown, Row, Col } from "react-bootstrap";
 import { Context } from "../..";
-import { fetchBrands, fetchTypes } from "../../http/deviceApi";
+import { createDevice, fetchBrands, fetchTypes } from "../../http/deviceApi";
 
 const CreateDevice = observer(({ show, onHide }) => {
   const { device } = useContext(Context);
@@ -20,7 +20,14 @@ const CreateDevice = observer(({ show, onHide }) => {
     setProps(props.map(prop => (prop.number === number ? { ...prop, [key]: value } : prop)));
   };
   const addType = () => {
-    onHide();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("img", file);
+    formData.append("brandId", device.selectedBrand.id);
+    formData.append("typeId", device.selectedType.id);
+    formData.append("info", JSON.stringify(props));
+    createDevice(formData).then(() => onHide());
   };
   useEffect(() => {
     fetchTypes().then(types => device.setTypes(types));
@@ -71,7 +78,6 @@ const CreateDevice = observer(({ show, onHide }) => {
             placeholder="Input image..."
             className="mt-3"
             type="file"
-            value={file}
             onChange={e => setFile(e.target.files[0])}
           />
           <hr />
