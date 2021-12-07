@@ -7,6 +7,7 @@ import DeviceList from "../components/DeviceList";
 import TypeBar from "../components/TypeBar";
 import { Context } from "..";
 import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceApi";
+import Pages from "../components/Pages";
 
 const Shop = observer(() => {
   const { device } = useContext(Context);
@@ -25,6 +26,7 @@ const Shop = observer(() => {
         <Col md={9}>
           <BrandBar />
           <DeviceList />
+          <Pages />
         </Col>
       </Row>
     </Container>
