@@ -9,9 +9,14 @@ const Approuter = () => {
   const { user } = useContext(Context);
   return (
     <Switch>
-      {user.isAuthorized
+      {/*user.isAuthorized
         ? authRoutes.map(({ Component, ...props }) => <Route key={props.path} {...props} component={Component} />)
-        : publicRoutes.map(({ Component, ...props }) => <Route key={props.path} {...props} component={Component} />)}
+        : publicRoutes.map(({ Component, ...props }) => <Route key={props.path} {...props} component={Component} />)*/}
+      {user.isAuthorized &&
+        authRoutes.map(({ Component, ...props }) => <Route key={props.path} {...props} component={Component} />)}
+      {publicRoutes.map(({ Component, ...props }) => (
+        <Route key={props.path} {...props} component={Component} />
+      ))}
       <Redirect to={SHOP_ROUTE} />
     </Switch>
   );
